@@ -108,8 +108,8 @@ else
     fi
 
     alias ls="${aliases[ls]:-ls} -G"
-  else
-    alias ls="${aliases[ls]:-ls} -F"
+  # else
+  #   alias ls="${aliases[ls]:-ls} -F"
   fi
 fi
 
