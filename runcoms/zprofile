@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='nvim'
+export VISUAL='nvim'
 export PAGER='less'
 
 #
@@ -44,6 +44,10 @@ typeset -gU cdpath fpath mailpath path
 # Set the list of directories that Zsh searches for programs.
 path=(
   /usr/local/{bin,sbin}
+  /Applications/Racket\ v7.3/bin
+  $HOME/.pyenv/bin
+  /usr/local/opt/ruby/bin
+  /usr/local/lib/ruby/gems/2.6.0/bin
   $path
 )
 
@@ -61,3 +65,40 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
+
+alias 'tar xf'='tar -xf'
+alias 'vim'='nvim'
+alias 'vimstall'='vim +PluginInstall +qall'
+alias 'ls'='colorls --sd --gs'
+alias 'weather'='curl wttr.in'
+alias 'tree'='tree -C'
+alias 'n'='npm'
+alias 'ni'='npm ci'
+alias 'v'='nvim'
+alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
+alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
+alias free="vm_stat | perl -ne '/page size of (\d+)/ and $size=$1; /Pages\s+([^:]+)[^\d]+(\d+)/ and printf(\"%-16s % 16.2f Mi\n\", "$1:", $2 * $size / 1048576);'"
+
+alias git-log='git log --abbrev-commit --pretty=format:"%<(9,trunc)%Cgreen%aN%Creset %Cred%ar%Creset %h%n· %s%n"'
+eval "$(hub alias -s)"
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PYTHON_CONFIGURE_OPTS="--enable-framework"
+
+_has(){
+    command type "$1" > /dev/null 2>&1
+}
+
+# fzf via Homebrew
+if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
+  source /usr/local/opt/fzf/shell/key-bindings.zsh
+  source /usr/local/opt/fzf/shell/completion.zsh
+fi
+
+# fzf + ag configuration
+if _has fzf && _has ag; then
+  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+fi
+
+source $(dirname $(gem which colorls))/tab_complete.sh
