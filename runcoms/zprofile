@@ -74,16 +74,21 @@ alias 'weather'='curl wttr.in'
 alias 'tree'='tree -C'
 alias 'n'='npm'
 alias 'ni'='npm ci'
+alias 'nr'='npm run'
+alias 'nt'='npm test'
 alias 'v'='nvim'
 alias showFiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder /System/Library/CoreServices/Finder.app'
 alias hideFiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder /System/Library/CoreServices/Finder.app'
 alias free="vm_stat | perl -ne '/page size of (\d+)/ and $size=$1; /Pages\s+([^:]+)[^\d]+(\d+)/ and printf(\"%-16s % 16.2f Mi\n\", "$1:", $2 * $size / 1048576);'"
 
 alias git-log='git log --abbrev-commit --pretty=format:"%<(9,trunc)%Cgreen%aN%Creset %Cred%ar%Creset %h%n· %s%n"'
-eval "$(hub alias -s)"
+#eval "$(hub alias -s)"
 
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+
+eval "$(jenv init -)"
+
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
 _has(){
